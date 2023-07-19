@@ -25,3 +25,8 @@ This program collects system information and file paths from the specified direc
  11) The program exits.
 
 Overall, this program collects system information, retrieves file paths from specified directories, and sends the collected data as a compressed archive file to a Telegram chat using a bot.
+
+
+![image](https://github.com/lsanarchist/PyRaider/assets/59514149/d45a74bd-bbb6-4fe9-a8b0-dd263ea52d5a)
+Do we got wallet.dat?
+Better, we got path to wallet.dat
