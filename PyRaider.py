@@ -85,4 +85,3 @@ with open(archive_file_path, 'rb') as file:
     bot.send_document(CHAT_ID, file, caption = info)
 
 os.remove(archive_file_path)
-exit()
