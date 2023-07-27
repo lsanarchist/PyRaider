@@ -30,3 +30,8 @@ Overall, this program collects system information, retrieves file paths from spe
 ![image](https://github.com/lsanarchist/PyRaider/assets/59514149/d45a74bd-bbb6-4fe9-a8b0-dd263ea52d5a)
 Do we got wallet.dat?
 Better, we got path to wallet.dat
+
+
+
+
+u can easy rewrite it and make it work without creating .txt
