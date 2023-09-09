@@ -34,4 +34,3 @@ Better, we got path to wallet.dat
 
 
 
-u can easy rewrite it and make it work without creating .txt
